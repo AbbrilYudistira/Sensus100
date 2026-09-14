@@ -1,0 +1,77 @@
+[
+  {
+    "question": "Sebutkan data BPS yang paling sering dicari oleh Mahasiswa untuk Skripsi!",
+    "answers": [
+      {
+        "text": "Tingkat Kemiskinan",
+        "points": 45
+      },
+      {
+        "text": "Pertumbuhan Ekonomi / PDB",
+        "points": 25
+      },
+      {
+        "text": "Jumlah Penduduk",
+        "points": 15
+      },
+      {
+        "text": "Tingkat Pengangguran",
+        "points": 10
+      },
+      {
+        "text": "Data Inflasi",
+        "points": 5
+      }
+    ]
+  },
+  {
+    "question": "Benda apa yang biasanya WAJIB dibawa oleh petugas pencacah survei BPS ke lapangan?",
+    "answers": [
+      {
+        "text": "Kuesioner / Kertas",
+        "points": 40
+      },
+      {
+        "text": "HP / Tablet / Gadget",
+        "points": 30
+      },
+      {
+        "text": "Rompi Petugas BPS",
+        "points": 15
+      },
+      {
+        "text": "Surat Tugas",
+        "points": 10
+      },
+      {
+        "text": "Pena / Alat Tulis",
+        "points": 5
+      }
+    ]
+  },
+  {
+    "question": "Apa reaksi atau pertanyaan warga saat pertama kali rumahnya didatangi petugas sensus BPS?",
+    "answers": [
+      {
+        "text": "Dapat bantuan uang/sembako nggak?",
+        "points": 40
+      },
+      {
+        "text": "Ramah / Langsung disuruh masuk",
+        "points": 25
+      },
+      {
+        "text": "Kaget / Mengira penagih utang",
+        "points": 20
+      },
+      {
+        "text": "Beralasan sedang repot/sibuk",
+        "points": 10
+      },
+      {
+        "text": "Mengira minta sumbangan",
+        "points": 5
+      }
+    ]
+  }
+]

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admin - SENSUS 100</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bps-navy: #0b2545;
+            --bps-blue: #1565c0;
+            --bps-blue-dark: #0d4c99;
+            --bps-green: #1f9d55;
+            --bps-green-dark: #167a42;
+            --bps-orange: #f5921e;
+            --bps-orange-dark: #d97a0e;
+            --bps-white: #ffffff;
+            --bg-page: #f2f5f9;
+            --border-soft: #e3e8ef;
+            --text-muted: #6b7a90;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-page);
+            padding: 36px 20px;
+            margin: 0;
+            color: var(--bps-navy);
+        }
+
+        .panel {
+            background: var(--bps-white);
+            padding: 34px 38px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(11, 37, 69, 0.08);
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--bps-navy);
+            border-bottom: none;
+            padding-bottom: 4px;
+            margin: 0 0 4px 0;
+            font-size: 1.7em;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 64px;
+            height: 5px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--bps-blue), var(--bps-orange));
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        p { color: var(--text-muted); }
+
+        .btn {
+            padding: 12px 22px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(11, 37, 69, 0.12);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(11, 37, 69, 0.18); filter: brightness(1.05); }
+        .btn:active { transform: translateY(0); box-shadow: 0 2px 4px rgba(11, 37, 69, 0.15); }
+
+        .btn-blue { background: var(--bps-blue); }
+        .btn-red {
+            background: linear-gradient(135deg, var(--bps-orange), var(--bps-orange-dark));
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            font-size: 21px;
+            padding: 22px;
+            box-shadow: 0 6px 0 var(--bps-orange-dark), 0 10px 20px rgba(245, 146, 30, 0.25);
+        }
+        .btn-red:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--bps-orange-dark), 0 14px 24px rgba(245, 146, 30, 0.3); }
+        .btn-red:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--bps-orange-dark); }
+        .btn-green { background: var(--bps-green); }
+        .btn-disabled { background: #c3cad4; cursor: not-allowed; box-shadow: none; }
+        .btn-disabled:hover { transform: none; filter: none; box-shadow: none; }
+        .btn-dark { background: var(--bps-navy); width: 100%; margin-top: 15px; }
+        .btn-small {
+            padding: 7px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 6px;
+            border-radius: 20px;
+            box-shadow: none;
+            border: 1.5px solid transparent;
+        }
+
+        .btn-warning {
+            background: #fff4e5;
+            color: var(--bps-orange-dark);
+            border-color: #fbdca8;
+        }
+        .btn-warning:hover {
+            background: var(--bps-orange);
+            color: white;
+            border-color: var(--bps-orange);
+            filter: none;
+        }
+
+        .btn-danger {
+            background: #fdeaea;
+            color: #b83232;
+            border-color: #f5c2c2;
+        }
+        .btn-danger:hover {
+            background: #d64545;
+            color: white;
+            border-color: #d64545;
+            filter: none;
+        }
+
+        .answer-row {
+            display: flex;
+            justify-content: space-between;
+            background: #f7f9fc;
+            padding: 15px 18px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            border-left: 5px solid var(--bps-blue);
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .score-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin: 24px 0;
+            padding: 18px 22px;
+            background: #f7f9fc;
+            border-radius: 16px;
+            border: 1px solid var(--border-soft);
+            flex-wrap: wrap;
+        }
+
+        .score-input {
+            width: 68px;
+            padding: 9px 4px 9px 10px;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            background: white;
+            -moz-appearance: textfield;
+        }
+        .score-input::-webkit-outer-spin-button,
+        .score-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .score-input:focus {
+            outline: none;
+            border-color: var(--bps-blue);
+            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+        }
+
+        .score-team {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .team-label {
+            font-weight: 700;
+            color: var(--bps-navy);
+            font-size: 14px;
+            white-space: nowrap;
+            min-width: 42px;
+        }
+
+        .btn-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+        .btn-icon:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .btn-icon:active { transform: translateY(0); }
+
+        .btn-icon-add { background: var(--bps-blue); color: white; }
+        .btn-icon-sub { background: #fdeaea; color: #b83232; }
+
+        .score-divider {
+            width: 1px;
+            height: 32px;
+            background: var(--border-soft);
+        }
+
+        .status-badge {
+            background: var(--bps-blue);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .add-form {
+            background: var(--bps-white);
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 4px 16px rgba(11, 37, 69, 0.05);
+            margin-top: 40px;
+            transition: 0.3s;
+        }
+        .add-form.edit-mode {
+            border: 1px solid var(--bps-orange);
+            background: #fffaf1;
+            box-shadow: 0 4px 16px rgba(245, 146, 30, 0.12);
+        }
+
+        .add-form label { color: var(--bps-navy); }
+
+        .add-form input[type="text"], .add-form input[type="number"] {
+            padding: 11px 14px;
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: #fbfcfe;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .add-form input[type="text"]:focus, .add-form input[type="number"]:focus {
+            outline: none;
+            border-color: var(--bps-blue);
+            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+        }
+
+        .ans-input-group { display: flex; gap: 10px; margin-top: 10px; }
+
+        .bank-soal { margin-top: 40px; border-top: 1px dashed var(--border-soft); padding-top: 24px; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 18px 0;
+        }
+
+        .section-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--bps-blue), var(--bps-orange));
+            box-shadow: 0 3px 8px rgba(21, 101, 192, 0.25);
+            flex-shrink: 0;
+        }
+
+        .q-item {
+            background: var(--bps-white);
+            border: 1px solid var(--border-soft);
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(11, 37, 69, 0.04);
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>Panel Admin SENSUS 100</h1>
+        <p>Status: <span id="q-status" class="status-badge"></span></p>
+        <h2 id="question-text" style="color:#0b2545;">Loading...</h2>
+        
+        <div id="admin-answers" style="margin-top: 20px;"></div>
+
+        <div style="margin-top: 30px; margin-bottom: 20px;">
+            <div style="display:flex; gap:15px;">
+                <button class="btn btn-red" style="flex:1;" onclick="showX('a')">❌ SALAH - TIM A ❌</button>
+                <button class="btn btn-red" style="flex:1;" onclick="showX('b')">❌ SALAH - TIM B ❌</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-blue" onclick="prevQ()">« Soal Sebelumnya</button>
+            <button class="btn btn-green" onclick="nextQ()">Soal Selanjutnya »</button>
+        </div>
+
+        <!-- UNTUK MENGATUR SKOR ⬇️ -->
+        <div class="score-controls">
+            <div class="score-team">
+                <span class="team-label">Tim A</span>
+                <input type="number" class="score-input" id="input-a" placeholder="0">
+                <button class="btn-icon btn-icon-add" onclick="addScore('a', 1)" title="Tambah">+</button>
+                <button class="btn-icon btn-icon-sub" onclick="addScore('a', -1)" title="Kurang">−</button>
+            </div>
+        
+            <div class="score-divider"></div>
+        
+            <div class="score-team">
+                <span class="team-label">Tim B</span>
+                <input type="number" class="score-input" id="input-b" placeholder="0">
+                <button class="btn-icon btn-icon-add" onclick="addScore('b', 1)" title="Tambah">+</button>
+                <button class="btn-icon btn-icon-sub" onclick="addScore('b', -1)" title="Kurang">−</button>
+            </div>
+        
+            <div class="score-divider"></div>
+        
+            <button class="btn btn-warning btn-small" onclick="socket.emit('reset_wrong')">🔄 Reset Strike</button>
+            <button class="btn btn-danger btn-small" onclick="confirmResetScore()">🗑️ Reset Skor</button>
+        </div>
+        
+        
+
+        <!-- FORM TAMBAH / EDIT SOAL -->
+        <div class="add-form" id="form-container">
+            <h2 style="margin-top: 0; color: #0b2545;" id="form-title">➕ Tambah Soal Baru</h2>
+            <label><strong>Pertanyaan:</strong></label>
+            <input type="text" id="new-q-text" style="width: 100%; box-sizing: border-box; margin-top: 5px; margin-bottom: 15px;" placeholder="Contoh: Apa sebutan untuk wilayah terkecil survei BPS?">
+
+            <label><strong>Jawaban & Poin:</strong> (Kosongkan baris yang tidak perlu)</label>
+            <div id="new-q-answers">
+                <div class="ans-input-group"><input type="text" class="new-ans-text" placeholder="Jawaban 1 (Teratas)" style="flex: 3;"><input type="number" class="new-ans-poin" placeholder="Poin" style="flex: 1;"></div>
+                <div class="ans-input-group"><input type="text" class="new-ans-text" placeholder="Jawaban 2" style="flex: 3;"><input type="number" class="new-ans-poin" placeholder="Poin" style="flex: 1;"></div>
+                <div class="ans-input-group"><input type="text" class="new-ans-text" placeholder="Jawaban 3" style="flex: 3;"><input type="number" class="new-ans-poin" placeholder="Poin" style="flex: 1;"></div>
+                <div class="ans-input-group"><input type="text" class="new-ans-text" placeholder="Jawaban 4" style="flex: 3;"><input type="number" class="new-ans-poin" placeholder="Poin" style="flex: 1;"></div>
+                <div class="ans-input-group"><input type="text" class="new-ans-text" placeholder="Jawaban 5" style="flex: 3;"><input type="number" class="new-ans-poin" placeholder="Poin" style="flex: 1;"></div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-dark" id="btn-submit-q" onclick="submitQuestion()">Simpan Soal Baru</button>
+                <button class="btn btn-danger" id="btn-cancel-edit" style="display: none; margin-top: 15px;" onclick="cancelEdit()">Batal Edit</button>
+            </div>
+        </div>
+
+        <!-- BANK SOAL (MANAJEMEN SOAL) -->
+        <div class="bank-soal">
+            <h3 class="section-title">
+                <span class="section-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 5.5C4 4.67 4.67 4 5.5 4H11V20H5.5C4.67 20 4 19.33 4 18.5V5.5Z" fill="white" fill-opacity="0.9"/>
+                        <path d="M13 4H18.5C19.33 4 20 4.67 20 5.5V18.5C20 19.33 19.33 20 18.5 20H13V4Z" fill="white" fill-opacity="0.55"/>
+                    </svg>
+                </span>
+                Bank Soal (Daftar Semua Soal)
+            </h3>
+            <div id="bank-list"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let allQuestions = [];
+        let editingIndex = null;
+        
+        socket.on('state_update', (data) => {
+            document.getElementById('question-text').innerText = data.question.question;
+            document.getElementById('q-status').innerText = `Pertanyaan ${data.qIndex + 1} dari ${data.totalQ}`;
+            
+            const ansDiv = document.getElementById('admin-answers');
+            ansDiv.innerHTML = '';
+            
+            data.question.answers.forEach((ans, i) => {
+                const isRevealed = data.revealed.includes(i);
+                const row = document.createElement('div');
+                row.className = 'answer-row';
+                let btnHtml = isRevealed ? `<button class="btn btn-disabled" disabled>✓ Terbuka</button>` : `<button class="btn btn-blue" onclick="reveal(${i})">Buka Jawaban</button>`;
+                row.innerHTML = `<span><strong>Top ${i+1}:</strong> ${ans.text} <em>(${ans.points} Poin)</em></span>${btnHtml}`;
+                ansDiv.appendChild(row);
+            });
+        });
+
+        // Menerima seluruh data soal untuk Bank Soal
+        socket.on('admin_sync_questions', (questionsData) => {
+            allQuestions = questionsData;
+            const bankList = document.getElementById('bank-list');
+            bankList.innerHTML = '';
+
+            if(allQuestions.length === 0) {
+                bankList.innerHTML = '<p>Belum ada soal.</p>';
+                return;
+            }
+
+            allQuestions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'q-item';
+                div.innerHTML = `
+                    <div style="flex: 1;"><strong>${i+1}.</strong> ${q.question}</div>
+                    <div>
+                        <button class="btn btn-warning btn-small" onclick="editQ(${i})">✏️ Edit</button>
+                        <button class="btn btn-danger btn-small" onclick="delQ(${i})">🗑️ Hapus</button>
+                    </div>
+                `;
+                bankList.appendChild(div);
+            });
+        });
+
+        function reveal(index) { socket.emit('reveal_answer', index); }
+        function showX(team) { socket.emit('show_x', team); }
+        function nextQ() { socket.emit('next_question'); }
+        function prevQ() { socket.emit('prev_question'); }
+        function addScore(team, direction) {
+            const input = document.getElementById(team === 'a' ? 'input-a' : 'input-b');
+            const value = parseInt(input.value) || 0;
+            if (value === 0) return;
+            socket.emit('update_score', { team: team, delta: value * direction });
+            input.value = '';
+        }
+        function confirmResetScore() {
+            if (confirm('Yakin ingin mereset skor Tim A dan Tim B ke 0?')) {
+                socket.emit('reset_score');
+            }
+        }
+
+        // FUNGSI MANAJEMEN SOAL
+        function delQ(index) {
+            if(confirm('Yakin ingin menghapus soal ini?')) {
+                socket.emit('delete_question', index);
+                if(editingIndex === index) cancelEdit();
+            }
+        }
+
+        function editQ(index) {
+            editingIndex = index;
+            const q = allQuestions[index];
+            document.getElementById('new-q-text').value = q.question;
+            
+            const texts = document.querySelectorAll('.new-ans-text');
+            const points = document.querySelectorAll('.new-ans-poin');
+            
+            // Bersihkan form dulu
+            texts.forEach(t => t.value = '');
+            points.forEach(p => p.value = '');
+            
+            // Isi form dengan data yang diedit
+            q.answers.forEach((ans, i) => {
+                if(i < 5) {
+                    texts[i].value = ans.text;
+                    points[i].value = ans.points;
+                }
+            });
+            
+            document.getElementById('form-container').classList.add('edit-mode');
+            document.getElementById('form-title').innerText = "✏️ Edit Soal (Index " + (index+1) + ")";
+            document.getElementById('btn-submit-q').innerText = "💾 Update Soal (Simpan)";
+            document.getElementById('btn-submit-q').classList.replace('btn-dark', 'btn-warning');
+            document.getElementById('btn-cancel-edit').style.display = "inline-block";
+            
+            // Scroll otomatis ke form
+            document.getElementById('form-container').scrollIntoView({behavior: "smooth"});
+        }
+
+        function cancelEdit() {
+            editingIndex = null;
+            document.getElementById('new-q-text').value = '';
+            document.querySelectorAll('.new-ans-text').forEach(t => t.value = '');
+            document.querySelectorAll('.new-ans-poin').forEach(p => p.value = '');
+            
+            document.getElementById('form-container').classList.remove('edit-mode');
+            document.getElementById('form-title').innerText = "➕ Tambah Soal Baru";
+            document.getElementById('btn-submit-q').innerText = "Simpan Soal Baru";
+            document.getElementById('btn-submit-q').classList.replace('btn-warning', 'btn-dark');
+            document.getElementById('btn-cancel-edit').style.display = "none";
+        }
+
+        function submitQuestion() {
+            const qText = document.getElementById('new-q-text').value;
+            if(!qText) return alert('Ups, Pertanyaan tidak boleh kosong!');
+
+            const answers = [];
+            const texts = document.querySelectorAll('.new-ans-text');
+            const points = document.querySelectorAll('.new-ans-poin');
+
+            for(let i=0; i<texts.length; i++) {
+                if(texts[i].value.trim() !== '') {
+                    answers.push({
+                        text: texts[i].value.trim(),
+                        points: parseInt(points[i].value) || 0
+                    });
+                }
+            }
+            if(answers.length === 0) return alert('Minimal harus ada 1 jawaban yang diisi!');
+
+            if(editingIndex !== null) {
+                // Update Soal Lama
+                socket.emit('edit_question', { index: editingIndex, question: { question: qText, answers: answers } });
+                alert('Soal berhasil diperbarui!');
+            } else {
+                // Tambah Soal Baru
+                socket.emit('add_question', { question: qText, answers: answers });
+                alert('Soal baru berhasil ditambahkan!');
+            }
+            cancelEdit(); // Reset form setelah simpan
+        }
+    </script>
+</body>
+</html>
