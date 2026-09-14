@@ -8,6 +8,31 @@ const server = http.createServer(app);
 const io = new Server(server);
 const QUESTIONS_FILE = './questions.json';
 
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'passworda'; // ganti dengan password kamu
+
+app.use('/admin.html', (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+        res.set('WWW-Authenticate', 'Basic realm="Admin Panel"');
+        return res.status(401).send('Akses ditolak. Perlu login admin.');
+    }
+
+    const base64Credentials = authHeader.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
+    const [user, pass] = credentials.split(':');
+
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        return next();
+    }
+
+    res.set('WWW-Authenticate', 'Basic realm="Admin Panel"');
+    return res.status(401).send('Username atau password salah.');
+});
+
+app.use(express.static('public'));
+
 app.use(express.static('public'));
 
 let questions;
